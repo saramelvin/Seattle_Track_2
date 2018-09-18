@@ -11,8 +11,8 @@ import (
 
 var totalLines = 20
 
-const dataRoot = `/Users/zac/go/src/gopl.io/mine/ais_headings/Seattle_Track_2/Data`
-const csvFilename = `AIS data Jan 2017 1_15 Caribbean filtered by proximity.csv`
+const dataRoot = `../../Data`
+const csvFilename = `AIS_LA_SD_Jan_1_to_15_2016_Filtered_by_Proximity.csv`
 const csvSubset = `Subset_Carib_Jan_17_Pairs.csv`
 
 func main() {

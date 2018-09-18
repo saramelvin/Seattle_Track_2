@@ -13,10 +13,10 @@ import (
 	"strings"
 	"time"
 
-	"gopl.io/mine/ais_headings/Seattle_Track_2/Utilities/csvAIS"
+	"../csvAIS"
 )
 
-const dataRoot = `/Users/zac/go/src/gopl.io/mine/ais_headings/Seattle_Track_2/Data`
+const dataRoot = `../../Data`
 const timeFieldRE = `BaseDateTime.*`
 const existingForm = "2006-01-02T03:04:05"
 
@@ -34,7 +34,7 @@ var outFilename string
 
 func init() {
 	const (
-		defaultInFile  = "Subset_LA_AIS_Data_Dec_17.csv"
+		defaultInFile  = "AIS_LA_SD_Jan_16_to_31_2016_Filtered_by_Proximity.csv"
 		defaultOutFile = "TimeFormattedOutfile.csv"
 		usageFile      = "Filename to transform"
 		usageOutput    = "Filename to save transform"
