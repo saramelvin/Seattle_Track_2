@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"../csvAIS"
+	"github.com/FATHOM5/Seattle_Track_2/Utilities/csvAIS"
 )
 
 const dataRoot = `../../Data`
