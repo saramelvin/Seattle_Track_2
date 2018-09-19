@@ -18,7 +18,7 @@ import (
 )
 
 const debug = false // logs debug statements to stdout
-const dataRoot = `/Users/zac/go/src/gopl.io/mine/ais_headings/Seattle_Track_2/Data`
+const dataRoot = `../../Data`
 const pad = ' ' //padding character for prety print
 
 var jsonFilename = `AIS_field_descriptions.json`
