@@ -22,7 +22,7 @@ To help get you started, this folder contains some example programs covering top
 
 **AIS_mk4.nb** - This Mathematica Notebook has an implementation of a stochastic divide-and-conquer algorithm for fast proximity filtering. It splits the data by truncating the time, lattitude and longitude and then randomly tests for proximity under a threshold.
 
-**AISmk3.nb**
+**AISmk3.nb** - This Mathematica Notebook has some file-handling functions for splitting large CSV files as well as several successive file size reduction techniques in order to reduce the search space for proximity filtering.
 
 
 <p align="center">
