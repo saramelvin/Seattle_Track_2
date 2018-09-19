@@ -7,12 +7,9 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
 )
 
-const dataRoot = `../../Data`
-
-// Flag for --file --output to the command line utility.
+// Flags for --file --output to the command line utility.
 // The order of initialization is undefined, so both long and short flags
 // must be set up with an init function.
 var inFilename string
@@ -21,9 +18,9 @@ var numLines int
 
 func init() {
 	const (
-		defaultLines = 20
-		defaultInFile = `AIS_LA_SD_Jan_1_to_15_2016_Filtered_by_Proximity.csv`
-		defaultOutFile = `Subset_Carib_Jan_17_Pairs.csv`
+		defaultLines   = 20
+		defaultInFile  = `default.csv`
+		defaultOutFile = `subset.csv`
 		usageFile      = "Filename to transform"
 		usageOutput    = "Filename to save transform"
 	)
@@ -31,22 +28,21 @@ func init() {
 	flag.StringVar(&inFilename, "f", defaultInFile, usageFile+" (shorthand)")
 	flag.StringVar(&outFilename, "out", defaultOutFile, usageOutput)
 	flag.StringVar(&outFilename, "o", defaultOutFile, usageOutput+" (shorthand)")
-	flag.IntVar(&numLines, "number", defaultLines, usageFile)
-	flag.IntVar(&numLines, "n", defaultLines, usageFile+" (shorthand)")
+	flag.IntVar(&numLines, "number", defaultLines, "number of line for subset")
+	flag.IntVar(&numLines, "n", defaultLines, "number of lines for subset"+" (shorthand)")
 }
 
 func main() {
-	// Implemented flag is [-f]
 	flag.Parse()
 
-	path := filepath.Join(dataRoot, inFilename)
+	path := inFilename
 	f, err := os.Open(path)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Opened: %s\n", path)
 
-	newFile, err := os.Create(filepath.Join(dataRoot, outFilename))
+	newFile, err := os.Create(outFilename)
 	if err != nil {
 		panic(err)
 	}

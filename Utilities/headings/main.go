@@ -50,7 +50,7 @@ func main() {
 	flag.Parse()
 
 	// Open the test file
-	path := filepath.Join(dataRoot, filename)
+	path := filepath.Join(filename)
 	f, err := os.Open(path)
 	if err != nil {
 		panic(err)

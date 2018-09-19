@@ -1,10 +1,8 @@
 *LA_AIS_Data_Dec_17.csv
-*Utilities/bin/format_time
 *Utilities/format_time/format_time
-*Utilities/bin/subset
 *Utilities/subset/subset
-*Utilities/bin/headings
 *Utilities/headings/headings
+*Utilities/csv_time_editor/csv_time_editor
 *.zip
 *DS_Store
 
