@@ -14,6 +14,8 @@ To help get you started, this folder contains some example programs covering top
 
 ## Mathematica Notebooks
 
+**Fast_Stochastic_Proximity_Pairs_Finder.nb** - This Mathematica Notebook takes chunks of the AIS data from Marine Cadastre, typically 100,000 lines at a time, partitions the data into groups of 200 with a 100 element sliding offset. It then randomly queries entries for being within 8000 yards within 10 minutes. It is set up to have a time limit to the computation, and quickly finds a majority of the interactions, though it takes a while to get all interactions.
+
 **AISDataProximity.nb** - This Mathematica Notebook imports AIS data from Marine Cadastre, splits the CSV files into smaller chunks by line count, and further splits it by hour.
 
 **AIS_Task.nb** - This Mathematica Notebook imports AIS data from Marine Cadastre and splits the data by day in order to reduce the file size to something more manageable. It also has functions to do basic deterministic proximity filtering and path interpolation.
