@@ -1,0 +1,920 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     37741,        912]
+NotebookOptionsPosition[     33381,        829]
+NotebookOutlinePosition[     34172,        855]
+CellTagsIndexPosition[     34040,        849]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Finisher", "[", "x_", "]"}], ":=", 
+  RowBox[{"Prepend", "[", 
+   RowBox[{
+    RowBox[{"SortBy", "[", 
+     RowBox[{
+      RowBox[{"Map", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Prepend", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{"Hash", "[", 
+            RowBox[{"#", ",", "\"\<CRC32\>\""}], "]"}]}], "]"}], "&"}], ",", 
+        RowBox[{"Map", "[", 
+         RowBox[{"Flatten", ",", "x"}], "]"}]}], "]"}], ",", 
+      RowBox[{
+       RowBox[{"#", "[", 
+        RowBox[{"[", "3", "]"}], "]"}], "&"}]}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{
+     "\"\<ID\>\"", ",", "\"\<MMSI_1\>\"", ",", "\"\<BaseDateTime_1\>\"", ",", 
+      "\"\<LAT_1\>\"", ",", "\"\<LON_1\>\"", ",", "\"\<SOG_1\>\"", ",", 
+      "\"\<COG_1\>\"", ",", "\"\<Heading_1\>\"", ",", "\"\<VesselName_1\>\"", 
+      ",", "\"\<IMO_1\>\"", ",", "\"\<CallSign_1\>\"", ",", 
+      "\"\<VesselType_1\>\"", ",", "\"\<Status_1\>\"", ",", 
+      "\"\<Length_1\>\"", ",", "\"\<Width_1\>\"", ",", "\"\<Draft_1\>\"", 
+      ",", "\"\<Cargo_1\>\"", ",", "\"\<MMSI_2\>\"", ",", 
+      "\"\<BaseDateTime_2\>\"", ",", "\"\<LAT_2\>\"", ",", "\"\<LON_2\>\"", 
+      ",", "\"\<SOG_2\>\"", ",", "\"\<COG_2\>\"", ",", "\"\<Heading_2\>\"", 
+      ",", "\"\<VesselName_2\>\"", ",", "\"\<IMO_2\>\"", ",", 
+      "\"\<CallSign_2\>\"", ",", "\"\<VesselType_2\>\"", ",", 
+      "\"\<Status_2\>\"", ",", "\"\<Length_2\>\"", ",", "\"\<Width_2\>\"", 
+      ",", "\"\<Draft_2\>\"", ",", "\"\<Cargo_2\>\""}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.746229926664618*^9, 3.746229987446437*^9}, {
+  3.746230050443869*^9, 3.746230095460843*^9}, {3.746230248834391*^9, 
+  3.746230259362399*^9}},
+ CellLabel->"In[84]:=",ExpressionUUID->"bb275b29-11da-46bd-9093-e366699c473c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"RandomTest", "[", "data_", "]"}], ":=", 
+  RowBox[{"With", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"g", "=", 
+      RowBox[{"RandomSample", "[", 
+       RowBox[{
+        RowBox[{"RandomChoice", "[", "data", "]"}], ",", "2"}], "]"}]}], 
+     "}"}], ",", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"g", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "1"}], "]"}], "]"}], "\[NotEqual]", 
+         RowBox[{"g", "[", 
+          RowBox[{"[", 
+           RowBox[{"2", ",", "1"}], "]"}], "]"}]}], ")"}], "&&", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"Abs", "[", 
+          RowBox[{
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ",", "2"}], "]"}], "]"}], "-", 
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{"2", ",", "2"}], "]"}], "]"}]}], "]"}], "\[LessEqual]", 
+         RowBox[{"60", "*", "10"}]}], ")"}], "&&", 
+       RowBox[{
+        RowBox[{"GeoDistance", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{"1", ",", 
+              RowBox[{"3", ";;", "4"}]}], "]"}], "]"}], ",", 
+           RowBox[{"g", "[", 
+            RowBox[{"[", 
+             RowBox[{"2", ",", 
+              RowBox[{"3", ";;", "4"}]}], "]"}], "]"}]}], "}"}], "]"}], 
+        "\[LessEqual]", 
+        RowBox[{"Quantity", "[", 
+         RowBox[{"8000", ",", "\"\<Yards\>\""}], "]"}]}]}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"MasterList", ",", 
+          RowBox[{"Sort", "[", "g", "]"}]}], "]"}], ",", 
+        RowBox[{"MasterList", "=", 
+         RowBox[{"Union", "[", "MasterList", "]"}]}]}], "}"}], ",", "None"}], 
+     "]"}]}], "]"}]}]], "Input",ExpressionUUID->"fcc4bfd8-4f20-44e9-b565-\
+086d95c42a8a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FileLis", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"FileNames", "[", 
+      RowBox[{
+       RowBox[{"{", "\"\<*\>\"", "}"}], ",", 
+       "\"\</Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/\>\""}], 
+      "]"}], ",", 
+     RowBox[{
+      RowBox[{"StringContainsQ", "[", 
+       RowBox[{"#", ",", "\"\<k.csv\>\""}], "]"}], "&"}]}], "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.7462930609865227`*^9, 3.746293109166996*^9}},
+ CellLabel->
+  "In[149]:=",ExpressionUUID->"2553fba9-8e35-4a1d-bb15-7af0ef7e6680"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "Module"}]], "Input",
+ CellChangeTimes->{{3.7462931160574617`*^9, 3.746293117958467*^9}},
+ CellLabel->
+  "In[150]:=",ExpressionUUID->"91149689-6ac4-4a7d-886d-9fb8cac19bc5"],
+
+Cell[BoxData[
+ RowBox[{"\<\"\\!\\(\\*RowBox[{\\\"Module\\\", \\\"[\\\", \
+RowBox[{RowBox[{\\\"{\\\", RowBox[{StyleBox[\\\"x\\\", \\\"TI\\\"], \
+\\\",\\\", StyleBox[\\\"y\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"\
+\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\"}], \\\",\\\", \
+StyleBox[\\\"expr\\\", \\\"TI\\\"]}], \\\"]\\\"}]\\) specifies that \
+occurrences of the symbols \\!\\(\\*StyleBox[\\\"x\\\", \\\"TI\\\"]\\), \
+\\!\\(\\*StyleBox[\\\"y\\\", \\\"TI\\\"]\\), \[Ellipsis] in \
+\\!\\(\\*StyleBox[\\\"expr\\\", \\\"TI\\\"]\\) should be treated as local. \
+\\n\\!\\(\\*RowBox[{\\\"Module\\\", \\\"[\\\", RowBox[{RowBox[{\\\"{\\\", \
+RowBox[{RowBox[{StyleBox[\\\"x\\\", \\\"TI\\\"], \\\"=\\\", \
+SubscriptBox[StyleBox[\\\"x\\\", \\\"TI\\\"], StyleBox[\\\"0\\\", \
+\\\"TR\\\"]]}], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\
+\\\"}], \\\",\\\", StyleBox[\\\"expr\\\", \\\"TI\\\"]}], \\\"]\\\"}]\\) \
+defines initial values for \\!\\(\\*StyleBox[\\\"x\\\", \\\"TI\\\"]\\), \
+\[Ellipsis]. \"\>", "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/Module"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.746293118642654*^9},
+ CellTags->
+  "Info1503746275118-9316136",ExpressionUUID->"c8e3c2ab-da22-466e-adb1-\
+36dda81727b5"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"MainFunction", "[", "filname_", "]"}], ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"fil", "=", "filname"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"tst2", "=", 
+     RowBox[{"Partition", "[", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ReplacePart", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"2", "\[Rule]", 
+             RowBox[{"AbsoluteTime", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "]"}], "&"}], ",", 
+         RowBox[{"Select", "[", 
+          RowBox[{
+           RowBox[{"Import", "[", "fil", "]"}], ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"#", "[", 
+              RowBox[{"[", "3", "]"}], "]"}], "\[LessEqual]", "27"}], "&"}]}],
+           "]"}]}], "]"}], ",", "200", ",", "100"}], "]"}]}], ";", "\n", 
+    RowBox[{"MasterList", "=", 
+     RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"TimeConstrained", "[", 
+     RowBox[{
+      RowBox[{"Do", "[", 
+       RowBox[{
+        RowBox[{"RandomTest", "[", "tst2", "]"}], ",", 
+        RowBox[{"{", "10000000000", "}"}]}], "]"}], ",", 
+      RowBox[{"60", "*", "5"}]}], "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{"StringReplace", "[", 
+       RowBox[{"fil", ",", 
+        RowBox[{"\"\<.csv\>\"", "\[Rule]", "\"\<_pairs.csv\>\""}]}], "]"}], 
+      ",", 
+      RowBox[{"Finisher", "[", "MasterList", "]"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Clear", "[", "MasterList", "]"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.74629318951709*^9, 3.7462932812910213`*^9}},
+ CellLabel->
+  "In[154]:=",ExpressionUUID->"286a1430-7ade-41c5-b8f6-dde87bfbcf27"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Map", "[", 
+  RowBox[{"MainFunction", ",", "FileLis"}], "]"}]], "Input",
+ CellChangeTimes->{{3.74629328564147*^9, 3.7462933016667957`*^9}},
+ CellLabel->
+  "In[155]:=",ExpressionUUID->"fb87bc82-f73c-45ca-bcf5-d861675fe4a4"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.746307837062366*^9},
+ CellLabel->
+  "Out[155]=",ExpressionUUID->"9cebd261-3e86-4f93-ab84-7bb6630c963f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "fil", "=", 
+     "\"\</Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/Caribb_Zone_17_\
+Dec_2017_100k.csv\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tst2", "=", 
+     RowBox[{"Partition", "[", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ReplacePart", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"2", "\[Rule]", 
+             RowBox[{"AbsoluteTime", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "]"}], "&"}], ",", 
+         RowBox[{"Import", "[", "fil", "]"}]}], "]"}], ",", "200", ",", 
+       "100"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+   RowBox[{
+    RowBox[{"MasterList", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"TimeConstrained", "[", 
+     RowBox[{
+      RowBox[{"Do", "[", 
+       RowBox[{
+        RowBox[{"RandomTest", "[", "tst2", "]"}], ",", 
+        RowBox[{"{", "10000000000", "}"}]}], "]"}], ",", 
+      RowBox[{"60", "*", "60", "*", "2"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"StringReplace", "[", 
+      RowBox[{"fil", ",", 
+       RowBox[{"\"\<.csv\>\"", "\[Rule]", "\"\<_pairs.csv\>\""}]}], "]"}], 
+     ",", 
+     RowBox[{"Finisher", "[", "MasterList", "]"}]}], "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Clear", "[", "MasterList", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.746223102601097*^9, 3.746223113077055*^9}, {
+   3.7462232443069143`*^9, 3.7462232585220118`*^9}, 3.7462307565255003`*^9, {
+   3.746230795870901*^9, 3.746230940912324*^9}, {3.746231198304678*^9, 
+   3.7462312355619993`*^9}, {3.746264749982256*^9, 3.746264757523497*^9}},
+ CellLabel->
+  "In[125]:=",ExpressionUUID->"ab9457f1-de8b-4a2b-8b19-47a508d9c608"],
+
+Cell[BoxData["\<\"/Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/Caribb_\
+Zone_17_Dec_2017_100k_pairs.csv\"\>"], "Output",
+ CellChangeTimes->{3.7462310577363043`*^9, 3.74623857884519*^9, 
+  3.746272069663582*^9},
+ CellLabel->
+  "Out[129]=",ExpressionUUID->"de24987d-cf98-43d1-ba82-c4f64dc47f5f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "fil", "=", 
+     "\"\</Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/Caribb_Zone_17_\
+Dec_2017_200k.csv\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tst2", "=", 
+     RowBox[{"Partition", "[", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ReplacePart", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"2", "\[Rule]", 
+             RowBox[{"AbsoluteTime", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "]"}], "&"}], ",", 
+         RowBox[{"Import", "[", "fil", "]"}]}], "]"}], ",", "200", ",", 
+       "100"}], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"MasterList", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+   RowBox[{
+    RowBox[{"TimeConstrained", "[", 
+     RowBox[{
+      RowBox[{"Do", "[", 
+       RowBox[{
+        RowBox[{"RandomTest", "[", "tst2", "]"}], ",", 
+        RowBox[{"{", "10000000000", "}"}]}], "]"}], ",", 
+      RowBox[{"60", "*", "60", "*", "2"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"StringReplace", "[", 
+      RowBox[{"fil", ",", 
+       RowBox[{"\"\<.csv\>\"", "\[Rule]", "\"\<_pairs.csv\>\""}]}], "]"}], 
+     ",", 
+     RowBox[{"Finisher", "[", "MasterList", "]"}]}], "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Clear", "[", "MasterList", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.746223102601097*^9, 3.746223113077055*^9}, {
+   3.7462232443069143`*^9, 3.7462232585220118`*^9}, 3.7462307565255003`*^9, {
+   3.746230795870901*^9, 3.746230940912324*^9}, {3.746231198304678*^9, 
+   3.74623122646531*^9}, {3.746264765621306*^9, 3.746264771570661*^9}},
+ CellLabel->
+  "In[131]:=",ExpressionUUID->"72148304-0755-46de-8c76-e43aea5cfa0c"],
+
+Cell[BoxData["\<\"/Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/Caribb_\
+Zone_17_Dec_2017_200k_pairs.csv\"\>"], "Output",
+ CellChangeTimes->{3.746245910938347*^9, 3.746279360379116*^9},
+ CellLabel->
+  "Out[135]=",ExpressionUUID->"09965b03-9226-4e15-ad39-543b5780eddc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "fil", "=", 
+     "\"\</Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/Caribb_Zone_17_\
+Dec_2017_300k.csv\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tst2", "=", 
+     RowBox[{"Partition", "[", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ReplacePart", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"2", "\[Rule]", 
+             RowBox[{"AbsoluteTime", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "]"}], "&"}], ",", 
+         RowBox[{"Import", "[", "fil", "]"}]}], "]"}], ",", "200", ",", 
+       "100"}], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"MasterList", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"TimeConstrained", "[", 
+     RowBox[{
+      RowBox[{"Do", "[", 
+       RowBox[{
+        RowBox[{"RandomTest", "[", "tst2", "]"}], ",", 
+        RowBox[{"{", "10000000000", "}"}]}], "]"}], ",", 
+      RowBox[{"60", "*", "60", "*", "2"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.746223102601097*^9, 3.746223113077055*^9}, {
+   3.7462232443069143`*^9, 3.7462232585220118`*^9}, 3.7462307565255003`*^9, {
+   3.746230795870901*^9, 3.746230940912324*^9}, {3.746231198304678*^9, 
+   3.746231237736628*^9}, {3.7462647768922358`*^9, 3.746264797153564*^9}, 
+   3.7462864565821533`*^9},ExpressionUUID->"cfeda7df-93e2-4793-b4a3-\
+17c1eb912a82"],
+
+Cell[BoxData["$Aborted"], "Output",
+ CellChangeTimes->{3.746253202131216*^9, 3.746286449072494*^9},
+ CellLabel->
+  "Out[140]=",ExpressionUUID->"abe15008-086a-4402-9f1b-7e22f7c29b2e"],
+
+Cell[BoxData["\<\"/Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/Caribb_\
+Zone_17_Dec_2017_300k_pairs.csv\"\>"], "Output",
+ CellChangeTimes->{3.746253202131216*^9, 3.7462864635878153`*^9},
+ CellLabel->
+  "Out[141]=",ExpressionUUID->"4e370963-f114-4321-a1e9-b07e6f77ece0"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{"StringReplace", "[", 
+     RowBox[{"fil", ",", 
+      RowBox[{"\"\<.csv\>\"", "\[Rule]", "\"\<_pairs.csv\>\""}]}], "]"}], ",", 
+    RowBox[{"Finisher", "[", "MasterList", "]"}]}], "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"Clear", "[", "MasterList", "]"}]}], "Input",ExpressionUUID->\
+"4d884651-49e6-4c76-8d94-7af5a9ce577c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "fil", "=", 
+     "\"\</Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/Caribb_Zone_17_\
+Dec_2017_400k.csv\>\""}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"tst2", "=", 
+     RowBox[{"Partition", "[", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"ReplacePart", "[", 
+           RowBox[{"#", ",", 
+            RowBox[{"2", "\[Rule]", 
+             RowBox[{"AbsoluteTime", "[", 
+              RowBox[{"#", "[", 
+               RowBox[{"[", "2", "]"}], "]"}], "]"}]}]}], "]"}], "&"}], ",", 
+         RowBox[{"Import", "[", "fil", "]"}]}], "]"}], ",", "200", ",", 
+       "100"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\n", 
+   RowBox[{
+    RowBox[{"MasterList", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"TimeConstrained", "[", 
+     RowBox[{
+      RowBox[{"Do", "[", 
+       RowBox[{
+        RowBox[{"RandomTest", "[", "tst2", "]"}], ",", 
+        RowBox[{"{", "10000000000", "}"}]}], "]"}], ",", 
+      RowBox[{"60", "*", "60", "*", "2"}]}], "]"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Export", "[", 
+    RowBox[{
+     RowBox[{"StringReplace", "[", 
+      RowBox[{"fil", ",", 
+       RowBox[{"\"\<.csv\>\"", "\[Rule]", "\"\<_pairs.csv\>\""}]}], "]"}], 
+     ",", 
+     RowBox[{"Finisher", "[", "MasterList", "]"}]}], "]"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Clear", "[", "MasterList", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.746223102601097*^9, 3.746223113077055*^9}, {
+   3.7462232443069143`*^9, 3.7462232585220118`*^9}, 3.7462307565255003`*^9, {
+   3.746230795870901*^9, 3.746230940912324*^9}, {3.746231198304678*^9, 
+   3.746231239297439*^9}, {3.7462648061265*^9, 
+   3.746264810833589*^9}},ExpressionUUID->"31119b8a-e7b4-42f0-bf9d-\
+21f6621351ea"],
+
+Cell[BoxData["\<\"/Volumes/PASSPORT/Dec17AISData/Caribb_18/1_Original/Carrib_\
+Zone_18_Dec_2017_400k_pairs.csv\"\>"], "Output",
+ CellChangeTimes->{3.746260486988155*^9},
+ CellLabel->
+  "Out[123]=",ExpressionUUID->"d7d9c651-61df-485d-abdb-23afe4d1c93e"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PairFiles", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"Select", "[", 
+      RowBox[{
+       RowBox[{"FileNames", "[", 
+        RowBox[{
+         RowBox[{"{", "\"\<*\>\"", "}"}], ",", 
+         "\"\</Volumes/PASSPORT/Dec17AISData/Caribb_17/1_Original/\>\""}], 
+        "]"}], ",", 
+       RowBox[{
+        RowBox[{"StringContainsQ", "[", 
+         RowBox[{"#", ",", "\"\<k_pair\>\""}], "]"}], "&"}]}], "]"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringContainsQ", "[", 
+        RowBox[{"#", ",", "\"\<._\>\""}], "]"}], "\[Equal]", "False"}], 
+      "&"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.746307846703808*^9, 3.7463078928983583`*^9}},
+ CellLabel->
+  "In[160]:=",ExpressionUUID->"3e9e646c-0be3-4400-a9af-62cc65c50b3c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"PairFiles", "//", "RandomChoice"}], "//", "Import"}], "//", 
+  "First"}]], "Input",
+ CellChangeTimes->{{3.746307860074526*^9, 3.746307861680418*^9}, {
+  3.746307900531563*^9, 3.7463079307112513`*^9}},
+ CellLabel->
+  "In[164]:=",ExpressionUUID->"3d99e631-625e-4aed-b696-442d69f8c0d1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"ID\"\>", ",", "\<\"MMSI_1\"\>", ",", "\<\"BaseDateTime_1\"\>", 
+   ",", "\<\"LAT_1\"\>", ",", "\<\"LON_1\"\>", ",", "\<\"SOG_1\"\>", 
+   ",", "\<\"COG_1\"\>", ",", "\<\"Heading_1\"\>", 
+   ",", "\<\"VesselName_1\"\>", ",", "\<\"IMO_1\"\>", 
+   ",", "\<\"CallSign_1\"\>", ",", "\<\"VesselType_1\"\>", 
+   ",", "\<\"Status_1\"\>", ",", "\<\"Length_1\"\>", ",", "\<\"Width_1\"\>", 
+   ",", "\<\"Draft_1\"\>", ",", "\<\"Cargo_1\"\>", ",", "\<\"MMSI_2\"\>", 
+   ",", "\<\"BaseDateTime_2\"\>", ",", "\<\"LAT_2\"\>", ",", "\<\"LON_2\"\>", 
+   ",", "\<\"SOG_2\"\>", ",", "\<\"COG_2\"\>", ",", "\<\"Heading_2\"\>", 
+   ",", "\<\"VesselName_2\"\>", ",", "\<\"IMO_2\"\>", 
+   ",", "\<\"CallSign_2\"\>", ",", "\<\"VesselType_2\"\>", 
+   ",", "\<\"Status_2\"\>", ",", "\<\"Length_2\"\>", ",", "\<\"Width_2\"\>", 
+   ",", "\<\"Draft_2\"\>", ",", "\<\"Cargo_2\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.74630786199365*^9, 3.746307932031865*^9}},
+ CellLabel->
+  "Out[164]=",ExpressionUUID->"e4c010c5-9ef1-451a-abc0-e9e86b849fde"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"FinalData", "=", 
+   RowBox[{"Flatten", "[", 
+    RowBox[{
+     RowBox[{"Prepend", "[", 
+      RowBox[{
+       RowBox[{"Map", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Rest", "[", 
+           RowBox[{"Import", "[", "#", "]"}], "]"}], "&"}], ",", 
+         RowBox[{"Rest", "[", "PairFiles", "]"}]}], "]"}], ",", 
+       RowBox[{"Import", "[", 
+        RowBox[{"First", "[", "PairFiles", "]"}], "]"}]}], "]"}], ",", "1"}], 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7463079625352592`*^9, 3.746308023632008*^9}, {
+  3.746308071702881*^9, 3.746308071788061*^9}, {3.746308454838031*^9, 
+  3.7463084711141148`*^9}},ExpressionUUID->"02a3dbaf-90c0-434d-b01e-\
+316a4aeb405c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FinalData", "//", "RandomChoice"}]], "Input",
+ CellChangeTimes->{{3.7463080548935223`*^9, 3.746308058411861*^9}},
+ CellLabel->
+  "In[169]:=",ExpressionUUID->"2253f4d0-befb-48ef-af19-774a48b5f295"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "2000680379", ",", "366693850", ",", "3721421002", ",", "26.09245`", ",", 
+   RowBox[{"-", "80.11714`"}], ",", "0.5`", ",", 
+   RowBox[{"-", "148.6`"}], ",", "77.`", ",", "\<\"BROWARD\"\>", 
+   ",", "\<\"IMO9123568\"\>", ",", "\<\"WCU2633\"\>", ",", "1025", 
+   ",", "\<\"undefined\"\>", ",", "30.48`", ",", "12.8`", ",", "\<\"\"\>", 
+   ",", "\<\"\"\>", ",", "367752580", ",", "3721421007", ",", "26.11764`", 
+   ",", 
+   RowBox[{"-", "80.1419`"}], ",", "0.`", ",", "72.7`", ",", "511.`", 
+   ",", "\<\"T-ZERO\"\>", ",", "\<\"\"\>", ",", "\<\"WDI9832\"\>", ",", 
+   "1019", ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "\<\"\"\>",
+    ",", "\<\"\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.746308058726428*^9, 3.746308092643407*^9}},
+ CellLabel->
+  "Out[169]=",ExpressionUUID->"95275e5d-e25b-4a24-af3f-03aa8d9fa543"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "DateString"}]], "Input",
+ CellChangeTimes->{{3.746308170785308*^9, 3.746308172144596*^9}},
+ CellLabel->
+  "In[171]:=",ExpressionUUID->"9226303d-2ec4-47f7-b3d6-2bd691e1f342"],
+
+Cell[BoxData[
+ RowBox[{"\<\"\\!\\(\\*RowBox[{\\\"DateString\\\", \\\"[\\\", \\\"]\\\"}]\\) \
+gives a string representing the complete current local date and time. \
+\\n\\!\\(\\*RowBox[{\\\"DateString\\\", \\\"[\\\", StyleBox[\\\"\\\\\\\"\\\\!\
+\\\\(\\\\*StyleBox[\\\\\\\"elem\\\\\\\",\\\\\\\"TI\\\\\\\"]\\\\)\\\\\\\"\\\", \
+ShowStringCharacters->True], \\\"]\\\"}]\\) gives the specified element or \
+format for date and time.\\n\\!\\(\\*RowBox[{\\\"DateString\\\", \\\"[\\\", \
+RowBox[{\\\"{\\\", \
+RowBox[{StyleBox[\\\"\\\\\\\"\\\\!\\\\(\\\\*StyleBox[\\\\\\\"elem\\\\\\\",\\\\\
+\\\"TI\\\\\\\"]\\\\_1\\\\)\\\\\\\"\\\", ShowStringCharacters->True], \
+\\\",\\\", StyleBox[\\\"\\\\\\\"\\\\!\\\\(\\\\*StyleBox[\\\\\\\"elem\\\\\\\",\
+\\\\\\\"TI\\\\\\\"]\\\\_2\\\\)\\\\\\\"\\\", ShowStringCharacters->True], \
+\\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\"}], \
+\\\"]\\\"}]\\) concatenates the specified elements in the order \
+given.\\n\\!\\(\\*RowBox[{\\\"DateString\\\", \\\"[\\\", RowBox[{\\\"{\\\", \
+RowBox[{StyleBox[\\\"y\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"m\\\", \
+\\\"TI\\\"], \\\",\\\", StyleBox[\\\"d\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\
+\\\"h\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"m\\\", \\\"TI\\\"], \
+\\\",\\\", StyleBox[\\\"s\\\", \\\"TI\\\"]}], \\\"}\\\"}], \\\"]\\\"}]\\) \
+gives a string corresponding to a DateList specification.\\n\\!\\(\\*RowBox[{\
+\\\"DateString\\\", \\\"[\\\", StyleBox[\\\"time\\\", \\\"TI\\\"], \
+\\\"]\\\"}]\\) gives a string corresponding to an AbsoluteTime specification.\
+\\n\\!\\(\\*RowBox[{\\\"DateString\\\", \\\"[\\\", StyleBox[\\\"date\\\", \
+\\\"TI\\\"], \\\"]\\\"}]\\) gives a string corresponding to a DateObject \
+specification.\\n\\!\\(\\*RowBox[{\\\"DateString\\\", \\\"[\\\", \
+RowBox[{StyleBox[\\\"spec\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"elems\\\", \\\"TI\\\"]}], \\\"]\\\"}]\\) gives elements \
+\\!\\(\\*StyleBox[\\\"elems\\\", \\\"TI\\\"]\\) of the date or time \
+specification \\!\\(\\*StyleBox[\\\"spec\\\", \\\"TI\\\"]\\).\"\>", 
+  "\[NonBreakingSpace]", 
+  ButtonBox[
+   StyleBox["\[RightSkeleton]", "SR"],
+   Active->True,
+   BaseStyle->"Link",
+   ButtonData->"paclet:ref/DateString"]}]], "Print", "PrintUsage",
+ CellChangeTimes->{3.746308172442039*^9},
+ CellTags->
+  "Info1713746290172-8673225",ExpressionUUID->"a3ac0501-9935-431e-83b2-\
+134906580b61"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"DateTimeFixer", "[", "x_", "]"}], ":=", 
+  RowBox[{"ReplacePart", "[", 
+   RowBox[{"x", ",", 
+    RowBox[{"3", "->", 
+     RowBox[{"DateString", "[", 
+      RowBox[{
+       RowBox[{"x", "[", 
+        RowBox[{"[", "3", "]"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<Month\>\"", ",", "\"\</\>\"", ",", "\"\<Day\>\"", ",", 
+         "\"\</\>\"", ",", "\"\<Year\>\"", ",", "\"\< \>\"", ",", 
+         "\"\<Hour\>\"", ",", "\"\<:\>\"", ",", "\"\<Minute\>\"", ",", 
+         "\"\<:\>\"", ",", "\"\<Second\>\""}], "}"}]}], "]"}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.746308131298996*^9, 3.746308145791903*^9}, {
+  3.746308192329417*^9, 3.746308208053318*^9}, {3.746308291987893*^9, 
+  3.746308325256963*^9}, {3.746308374954855*^9, 3.746308429615028*^9}},
+ CellLabel->
+  "In[183]:=",ExpressionUUID->"fe6ec4be-dc66-46b1-85a8-2db7d8df85b2"],
+
+Cell[BoxData["\"\<MM/DD/YYYY HH:MM:SS\>\""], "Input",
+ CellChangeTimes->{{3.746308236081506*^9, 
+  3.7463082367378798`*^9}},ExpressionUUID->"7fcd3790-a32e-40aa-9aec-\
+ddad44d18899"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Map", "[", 
+  RowBox[{"DateTimeFixer", ",", 
+   RowBox[{"FinalData", "[", 
+    RowBox[{"[", 
+     RowBox[{"2", ";;", "4"}], "]"}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7463082130855417`*^9, 3.746308220334815*^9}, {
+  3.7463084151295013`*^9, 3.746308416525807*^9}},
+ CellLabel->
+  "In[184]:=",ExpressionUUID->"0ae79c62-d997-4047-8be6-6625853508bb"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "191885802", ",", "368350000", ",", "\<\"12/01/2017 00:00:00\"\>", ",", 
+     "26.1151`", ",", 
+     RowBox[{"-", "80.10811`"}], ",", "0.`", ",", 
+     RowBox[{"-", "190.9`"}], ",", "69.`", ",", "\<\"DIONE SUN\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "37", 
+     ",", "\<\"under way using engine\"\>", ",", "39", ",", "8", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "538070231", ",", "3721075365", 
+     ",", "26.10283`", ",", 
+     RowBox[{"-", "80.12517`"}], ",", "0.`", ",", 
+     RowBox[{"-", "101.6`"}], ",", "511.`", ",", "\<\"TOTO\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"V7KE2\"\>", ",", "1019", 
+     ",", "\<\"under way using engine\"\>", ",", "\<\"\"\>", ",", "\<\"\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "2312009273", ",", "366999791", ",", "\<\"12/01/2017 00:00:00\"\>", ",", 
+     "25.77163`", ",", 
+     RowBox[{"-", "80.14457`"}], ",", "0.`", ",", 
+     RowBox[{"-", "131.4`"}], ",", "146.`", ",", "\<\"CG HUDSON\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"NCWX\"\>", ",", "1018", 
+     ",", "\<\"under way using engine\"\>", ",", "48.77`", ",", "9.14`", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "367653620", ",", "3721075589", 
+     ",", "25.76568`", ",", 
+     RowBox[{"-", "80.14984`"}], ",", "0.`", ",", "111.8`", ",", "359.`", 
+     ",", "\<\"PAYTON GRACE MORAN\"\>", ",", "\<\"IMO9778337\"\>", 
+     ",", "\<\"WDH7992\"\>", ",", "1025", 
+     ",", "\<\"under way using engine\"\>", ",", "28.18`", ",", "\<\"\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "808129839", ",", "319036500", ",", "\<\"12/01/2017 00:00:01\"\>", ",", 
+     "26.13961`", ",", 
+     RowBox[{"-", "80.10819`"}], ",", "0.`", ",", "0.`", ",", "511.`", 
+     ",", "\<\"ZENITH\"\>", ",", "\<\"IMO1011458\"\>", ",", "\<\"ZGBR4\"\>", 
+     ",", "1019", ",", "\<\"under way using engine\"\>", ",", "40.5`", ",", 
+     "10.7`", ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "367621350", ",", 
+     "3721075422", ",", "26.11805`", ",", 
+     RowBox[{"-", "80.14823`"}], ",", "0.`", ",", "15.6`", ",", "511.`", 
+     ",", "\<\"OH MY\"\>", ",", "\<\"\"\>", ",", "\<\"WDH4785\"\>", ",", 
+     "1019", ",", "\<\"\"\>", ",", "9.85`", ",", "\<\"\"\>", ",", "\<\"\"\>", 
+     ",", "\<\"\"\>"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.746308213649166*^9, 3.746308220609949*^9}, 
+   3.746308294468093*^9, 3.746308327382975*^9, {3.746308395125475*^9, 
+   3.746308431375124*^9}},
+ CellLabel->
+  "Out[184]=",ExpressionUUID->"96c62c3b-ac26-44b9-8733-55cc52e95f58"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FinalData", "[", 
+  RowBox[{"[", 
+   RowBox[{"1", ";;", "4"}], "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.746308113210876*^9, 3.746308116225103*^9}},
+ CellLabel->
+  "In[170]:=",ExpressionUUID->"57d3770a-772e-4b66-a8f6-22ce658c12b2"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\<\"ID\"\>", ",", "\<\"MMSI_1\"\>", 
+     ",", "\<\"BaseDateTime_1\"\>", ",", "\<\"LAT_1\"\>", 
+     ",", "\<\"LON_1\"\>", ",", "\<\"SOG_1\"\>", ",", "\<\"COG_1\"\>", 
+     ",", "\<\"Heading_1\"\>", ",", "\<\"VesselName_1\"\>", 
+     ",", "\<\"IMO_1\"\>", ",", "\<\"CallSign_1\"\>", 
+     ",", "\<\"VesselType_1\"\>", ",", "\<\"Status_1\"\>", 
+     ",", "\<\"Length_1\"\>", ",", "\<\"Width_1\"\>", ",", "\<\"Draft_1\"\>", 
+     ",", "\<\"Cargo_1\"\>", ",", "\<\"MMSI_2\"\>", 
+     ",", "\<\"BaseDateTime_2\"\>", ",", "\<\"LAT_2\"\>", 
+     ",", "\<\"LON_2\"\>", ",", "\<\"SOG_2\"\>", ",", "\<\"COG_2\"\>", 
+     ",", "\<\"Heading_2\"\>", ",", "\<\"VesselName_2\"\>", 
+     ",", "\<\"IMO_2\"\>", ",", "\<\"CallSign_2\"\>", 
+     ",", "\<\"VesselType_2\"\>", ",", "\<\"Status_2\"\>", 
+     ",", "\<\"Length_2\"\>", ",", "\<\"Width_2\"\>", ",", "\<\"Draft_2\"\>", 
+     ",", "\<\"Cargo_2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "191885802", ",", "368350000", ",", "3721075200", ",", "26.1151`", ",", 
+     RowBox[{"-", "80.10811`"}], ",", "0.`", ",", 
+     RowBox[{"-", "190.9`"}], ",", "69.`", ",", "\<\"DIONE SUN\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "37", 
+     ",", "\<\"under way using engine\"\>", ",", "39", ",", "8", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "538070231", ",", "3721075365", 
+     ",", "26.10283`", ",", 
+     RowBox[{"-", "80.12517`"}], ",", "0.`", ",", 
+     RowBox[{"-", "101.6`"}], ",", "511.`", ",", "\<\"TOTO\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"V7KE2\"\>", ",", "1019", 
+     ",", "\<\"under way using engine\"\>", ",", "\<\"\"\>", ",", "\<\"\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "2312009273", ",", "366999791", ",", "3721075200", ",", "25.77163`", ",", 
+     
+     RowBox[{"-", "80.14457`"}], ",", "0.`", ",", 
+     RowBox[{"-", "131.4`"}], ",", "146.`", ",", "\<\"CG HUDSON\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"NCWX\"\>", ",", "1018", 
+     ",", "\<\"under way using engine\"\>", ",", "48.77`", ",", "9.14`", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "367653620", ",", "3721075589", 
+     ",", "25.76568`", ",", 
+     RowBox[{"-", "80.14984`"}], ",", "0.`", ",", "111.8`", ",", "359.`", 
+     ",", "\<\"PAYTON GRACE MORAN\"\>", ",", "\<\"IMO9778337\"\>", 
+     ",", "\<\"WDH7992\"\>", ",", "1025", 
+     ",", "\<\"under way using engine\"\>", ",", "28.18`", ",", "\<\"\"\>", 
+     ",", "\<\"\"\>", ",", "\<\"\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+    "808129839", ",", "319036500", ",", "3721075201", ",", "26.13961`", ",", 
+     RowBox[{"-", "80.10819`"}], ",", "0.`", ",", "0.`", ",", "511.`", 
+     ",", "\<\"ZENITH\"\>", ",", "\<\"IMO1011458\"\>", ",", "\<\"ZGBR4\"\>", 
+     ",", "1019", ",", "\<\"under way using engine\"\>", ",", "40.5`", ",", 
+     "10.7`", ",", "\<\"\"\>", ",", "\<\"\"\>", ",", "367621350", ",", 
+     "3721075422", ",", "26.11805`", ",", 
+     RowBox[{"-", "80.14823`"}], ",", "0.`", ",", "15.6`", ",", "511.`", 
+     ",", "\<\"OH MY\"\>", ",", "\<\"\"\>", ",", "\<\"WDH4785\"\>", ",", 
+     "1019", ",", "\<\"\"\>", ",", "9.85`", ",", "\<\"\"\>", ",", "\<\"\"\>", 
+     ",", "\<\"\"\>"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.746308116537171*^9},
+ CellLabel->
+  "Out[170]=",ExpressionUUID->"9607c4ec-224e-4b05-88e5-57d2e05d87a0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+  "\"\</Volumes/PASSPORT/Dec17AISData/Caribb_18/1_Original/Carrib_Zone_18_Dec_\
+2017_Final_Pairs.csv\>\"", ",", 
+   RowBox[{"Prepend", "[", 
+    RowBox[{
+     RowBox[{"Map", "[", 
+      RowBox[{"DateTimeFixer", ",", 
+       RowBox[{"Rest", "[", "FinalData", "]"}]}], "]"}], ",", 
+     RowBox[{"First", "[", "FinalData", "]"}]}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.746308475873354*^9, 3.746308520392988*^9}},
+ CellLabel->
+  "In[185]:=",ExpressionUUID->"2b58ae45-f244-4011-887c-050ec3e6d70e"],
+
+Cell[BoxData["\<\"/Volumes/PASSPORT/Dec17AISData/Caribb_18/1_Original/Carrib_\
+Zone_18_Dec_2017_Final_Pairs.csv\"\>"], "Output",
+ CellChangeTimes->{3.746308714705862*^9},
+ CellLabel->
+  "Out[185]=",ExpressionUUID->"5951ec44-ec0f-4294-b992-d4c9daf95b92"]
+}, Open  ]]
+},
+WindowSize->{1471, 825},
+WindowMargins->{{Automatic, 11}, {24, Automatic}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info1503746275118-9316136"->{
+  Cell[5058, 144, 1327, 24, 70, "Print",ExpressionUUID->"c8e3c2ab-da22-466e-adb1-36dda81727b5",
+   CellTags->"Info1503746275118-9316136"]},
+ "Info1713746290172-8673225"->{
+  Cell[22349, 595, 2356, 38, 180, "Print",ExpressionUUID->"a3ac0501-9935-431e-83b2-134906580b61",
+   CellTags->"Info1713746290172-8673225"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info1503746275118-9316136", 33703, 840},
+ {"Info1713746290172-8673225", 33875, 843}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1785, 38, 94, "Input",ExpressionUUID->"bb275b29-11da-46bd-9093-e366699c473c"],
+Cell[2346, 60, 1912, 56, 73, "Input",ExpressionUUID->"fcc4bfd8-4f20-44e9-b565-086d95c42a8a"],
+Cell[4261, 118, 569, 16, 30, "Input",ExpressionUUID->"2553fba9-8e35-4a1d-bb15-7af0ef7e6680"],
+Cell[CellGroupData[{
+Cell[4855, 138, 200, 4, 30, "Input",ExpressionUUID->"91149689-6ac4-4a7d-886d-9fb8cac19bc5"],
+Cell[5058, 144, 1327, 24, 70, "Print",ExpressionUUID->"c8e3c2ab-da22-466e-adb1-36dda81727b5",
+ CellTags->"Info1503746275118-9316136"]
+}, Open  ]],
+Cell[6400, 171, 1776, 46, 136, "Input",ExpressionUUID->"286a1430-7ade-41c5-b8f6-dde87bfbcf27"],
+Cell[CellGroupData[{
+Cell[8201, 221, 246, 5, 30, "Input",ExpressionUUID->"fb87bc82-f73c-45ca-bcf5-d861675fe4a4"],
+Cell[8450, 228, 160, 3, 34, "Output",ExpressionUUID->"9cebd261-3e86-4f93-ab84-7bb6630c963f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8647, 236, 1974, 49, 262, "Input",ExpressionUUID->"ab9457f1-de8b-4a2b-8b19-47a508d9c608"],
+Cell[10624, 287, 300, 5, 34, "Output",ExpressionUUID->"de24987d-cf98-43d1-ba82-c4f64dc47f5f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10961, 297, 1971, 49, 262, "Input",ExpressionUUID->"72148304-0755-46de-8c76-e43aea5cfa0c"],
+Cell[12935, 348, 274, 4, 34, "Output",ExpressionUUID->"09965b03-9226-4e15-ad39-543b5780eddc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13246, 357, 1628, 40, 220, "Input",ExpressionUUID->"cfeda7df-93e2-4793-b4a3-17c1eb912a82"],
+Cell[14877, 399, 182, 3, 34, "Output",ExpressionUUID->"abe15008-086a-4402-9f1b-7e22f7c29b2e"],
+Cell[15062, 404, 276, 4, 34, "Output",ExpressionUUID->"4e370963-f114-4321-a1e9-b07e6f77ece0"]
+}, Open  ]],
+Cell[15353, 411, 426, 10, 73, "Input",ExpressionUUID->"4d884651-49e6-4c76-8d94-7af5a9ce577c"],
+Cell[CellGroupData[{
+Cell[15804, 425, 1948, 49, 262, "Input",ExpressionUUID->"31119b8a-e7b4-42f0-bf9d-21f6621351ea"],
+Cell[17755, 476, 252, 4, 34, "Output",ExpressionUUID->"d7d9c651-61df-485d-abdb-23afe4d1c93e"]
+}, Open  ]],
+Cell[18022, 483, 799, 22, 30, "Input",ExpressionUUID->"3e9e646c-0be3-4400-a9af-62cc65c50b3c"],
+Cell[CellGroupData[{
+Cell[18846, 509, 330, 8, 30, "Input",ExpressionUUID->"3d99e631-625e-4aed-b696-442d69f8c0d1"],
+Cell[19179, 519, 1062, 17, 56, "Output",ExpressionUUID->"e4c010c5-9ef1-451a-abc0-e9e86b849fde"]
+}, Open  ]],
+Cell[20256, 539, 729, 19, 30, "Input",ExpressionUUID->"02a3dbaf-90c0-434d-b01e-316a4aeb405c"],
+Cell[CellGroupData[{
+Cell[21010, 562, 220, 4, 30, "Input",ExpressionUUID->"2253f4d0-befb-48ef-af19-774a48b5f295"],
+Cell[21233, 568, 874, 16, 56, "Output",ExpressionUUID->"95275e5d-e25b-4a24-af3f-03aa8d9fa543"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22144, 589, 202, 4, 30, "Input",ExpressionUUID->"9226303d-2ec4-47f7-b3d6-2bd691e1f342"],
+Cell[22349, 595, 2356, 38, 180, "Print",ExpressionUUID->"a3ac0501-9935-431e-83b2-134906580b61",
+ CellTags->"Info1713746290172-8673225"]
+}, Open  ]],
+Cell[24720, 636, 901, 21, 30, "Input",ExpressionUUID->"fe6ec4be-dc66-46b1-85a8-2db7d8df85b2"],
+Cell[25624, 659, 181, 3, 30, "Input",ExpressionUUID->"7fcd3790-a32e-40aa-9aec-ddad44d18899"],
+Cell[CellGroupData[{
+Cell[25830, 666, 382, 9, 30, "Input",ExpressionUUID->"0ae79c62-d997-4047-8be6-6625853508bb"],
+Cell[26215, 677, 2627, 50, 140, "Output",ExpressionUUID->"96c62c3b-ac26-44b9-8733-55cc52e95f58"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[28879, 732, 259, 6, 30, "Input",ExpressionUUID->"57d3770a-772e-4b66-a8f6-22ce658c12b2"],
+Cell[29141, 740, 3378, 62, 182, "Output",ExpressionUUID->"9607c4ec-224e-4b05-88e5-57d2e05d87a0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32556, 807, 553, 13, 30, "Input",ExpressionUUID->"2b58ae45-f244-4011-887c-050ec3e6d70e"],
+Cell[33112, 822, 253, 4, 34, "Output",ExpressionUUID->"5951ec44-ec0f-4294-b992-d4c9daf95b92"]
+}, Open  ]]
+}
+]
+*)
+
