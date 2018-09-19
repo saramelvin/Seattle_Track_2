@@ -4,6 +4,13 @@
   <img src="https://static1.squarespace.com/static/596d24cd4402430bb863ffad/t/5b41e62603ce641f98f2e3cd/1536741696061/?format=1500w" width="350" title="hover text">
 </p>
 
+## Pre-processed Data
+If you are looking to get started with a smaller dataset, we have pre-filtered 2 datasets using the methods described below.
+Caribbean_Dec_2017_UTM17_Proximity Filtered_(FileX).csv contains several days of data that will correspond to the larger Spire dataset if you want to pull the entire ships track for some of the interactions.
+We also have a Jan 2016 dataset around Los Angeles and San Diego filtered using the same method, AIS Data LA_SD Jan 2016 Filtered by Proximity_(Date).csv
+
+Additionally, we have 3 simulated COLREGs interactions, so that you can see what they might look like in the AIS data. They are contained in Example_COLREGs_Interactions_UTM11.csv and have 3 interactions between ships: crossing, meeting, and overtaking. 
+
 ## Interested in Getting the Full Datasets?
 
 **Data Science and Seven Seas** is focused on two areas covered in three UTM Zones.  The first is the west coast of the United States coverd by UTM Zone 11.  The second area is the Caribbean which is encompassed by UTM Zones 17 and 18.  This folder contains a utility `get_data.sh` that will download three zip files from https://marinecadastre.gov/ais/ for December 2017 in the three UTM zones. Usage as follows (note that `user$ ` indicates the terminal prompt not a command to enter). 
