@@ -13,7 +13,7 @@ Additionally, we have 3 simulated COLREGs interactions, so that you can see what
 
 ## Interested in Getting the Full Datasets?
 
-**Data Science and Seven Seas** is focused on two areas covered in three UTM Zones.  The first is the west coast of the United States coverd by UTM Zone 11.  The second area is the Caribbean which is encompassed by UTM Zones 17 and 18.  This folder contains a utility `get_data.sh` that will download three zip files from https://marinecadastre.gov/ais/ for December 2017 in the three UTM zones. Usage as follows (note that `user$ ` indicates the terminal prompt not a command to enter). 
+**Data Science and Seven Seas** is focused on two areas covered in three UTM Zones.  The first is the west coast of the United States covered by UTM Zone 11.  The second area is the Caribbean which is encompassed by UTM Zones 17 and 18.  This folder contains a utility `get_data.sh` that will download three zip files from https://marinecadastre.gov/ais/ for December 2017 in the three UTM zones. Usage as follows (note that `user$ ` indicates the terminal prompt not a command to enter). 
 
  1. After cloning the repository onto your own machine...
  2. Enter the data folder.
