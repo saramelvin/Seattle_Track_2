@@ -33,8 +33,8 @@ lon_distance_intervals = np.linspace(borders['lon_min'], borders['lon_max'], lon
 print(lat_distance_intervals, len(lat_distance_intervals))
 print(lon_distance_intervals, len(lon_distance_intervals))
 
-for lat in lat_distance_intervals:
-    for lon in lon_distance_intervals:
+for temp_box_lat in lat_distance_intervals:
+    for temp_box_lon in lon_distance_intervals:
 
 
 df_sectors = df11[()&()&()&()]
