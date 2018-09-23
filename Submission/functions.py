@@ -63,3 +63,15 @@ def haversine(coord1, coord2):
     c=2*arcsin(sqrt(a))
     R = 6372.8
     return R*c
+
+
+def time_overlap(r1, r2):
+    if r2[0] <= r1[0] <= r2[1]:
+        return True
+    if r1[0] <= r2[0] <= r1[1]:
+        return True
+    if r2[0] <= r1[1] <= r2[1]:
+        return True
+    if r1[0] <= r2[1] <= r1[1]:
+        return True
+    return False

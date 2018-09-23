@@ -2,7 +2,7 @@ import pandas as pd
 from geopy.distance import great_circle
 import datetime
 from itertools import combinations
-from Submission.functions import haversine, filter_df, box_intervals
+from Submission.functions import haversine, filter_df, box_intervals, time_overlap
 
 df_file = 'data/AIS_2017_12_Zone11.csv'
 
@@ -22,6 +22,7 @@ for i in range(delta.days + 1):
     dates.append(date_min + datetime.timedelta(i))
 
 for date in dates:
+    date_start_time = datetime.datetime.now()
     print(date)
     df_date = df[(df.Date >= date) & (df.Date < date+datetime.timedelta(1))]
 
@@ -32,12 +33,15 @@ for date in dates:
     boxes_checked = 0
 
     ship_combos_checked = set()
+    ships_interactions = 0
     # Loop through each sub-box
     for lat_i, temp_box_lat in enumerate(intervals['lat']):
         for lon_i, temp_box_lon in enumerate(intervals['lon']):
             boxes_checked = boxes_checked + 1
             if boxes_checked % 1000 == 0:
                 print('Boxes checked:', boxes_checked)
+                print('Total ships comparisons for this day:', len(ship_combos_checked))
+                print('Total ship interactions for this day:', ships_interactions)
             # Don't loop through end of box
             if (lat_i < len(intervals['lat']) - 3) & (lon_i < len(intervals['lon']) - 3):
                 # print('Starting box', temp_box_lat, temp_box_lon)
@@ -49,44 +53,17 @@ for date in dates:
                 # If more than 1 ship
                 if ships is not None and len(ships) > 1:
                     ships.sort()
-                    # print('Starting box', temp_box_lat, temp_box_lon)
-                    # print('Count ships:', len(ships))
                     # Create all combinations of ships that haven't been checked yet
                     ship_combinations = set(list(combinations(ships, 2)))  # 2 for pairs, 3 for triplets, etc
                     ship_combinations = ship_combinations - ship_combos_checked
                     for combo in ship_combinations:
-                        # check time in here
-                        # Check distance between ships
-                        ship_combos_checked.add(combo)
-                        distance = great_circle((df_box.LAT[df_box.MMSI == combo[0]].iloc[0], df_box.LON[df_box.MMSI == combo[0]].iloc[0]), (df_box.LAT[df_box.MMSI == combo[1]].iloc[0], df_box.LON[df_box.MMSI == combo[1]].iloc[0])).feet / 3
-                        if distance < 8000:
-                            print(combo[0], combo[1])
-                            # interactions.append(df_box[df_box.MMSI == combo[0]])
-                            # interactions.append(df_box[df_box.MMSI == combo[1]])
-                # print(interactions.shape)
-
-
-
-
-
-# Range = namedtuple('Range', ['start', 'end'])
-# r1 = Range(start=datetime.datetime(2012, 1, 15), end=datetime.datetime(2012, 5, 10))
-# r2 = Range(start=datetime.datetime(2012, 3, 20), end=datetime.datetime(2012, 9, 15))
-# def time_overlap(r1, r2):
-#     latest_start = max(r1.start, r2.start)
-#     earliest_end = min(r1.end, r2.end)
-#     time_delta = (earliest_end - latest_start).seconds
-#     overlap = max(0, delta)
-#     overlap
-#
-#
-# i=0
-
-
-# df[(df.MMSI == 357147000)|(df.MMSI == 366760710)]
-# df_sectors = df[()&()&()&()]
-# temp_df =     df2[(df2.BaseDateTime > time_min)&(df2.BaseDateTime < time_max)]
-# ships = df.MMSI.tolist()
-# if len(ships) > 1
-#     for ship in ships:
-
+                        # Check for time overlap
+                        if time_overlap((df_box.BaseDateTime[df_box.MMSI == combo[0]].min(), df_box.BaseDateTime[df_box.MMSI == combo[0]].max()), (df_box.BaseDateTime[df_box.MMSI == combo[1]].min(), df_box.BaseDateTime[df_box.MMSI == combo[1]].max())):
+                            # Check distance between ships
+                            ship_combos_checked.add(combo)
+                            distance = great_circle((df_box.LAT[df_box.MMSI == combo[0]].iloc[0], df_box.LON[df_box.MMSI == combo[0]].iloc[0]), (df_box.LAT[df_box.MMSI == combo[1]].iloc[0], df_box.LON[df_box.MMSI == combo[1]].iloc[0])).feet / 3
+                            if distance <= 8000:
+                                ships_interactions = ships_interactions + 1
+    date_end_time = datetime.datetime.now()
+    time_delta = date_end_time - date_start_time
+    print('Time to process:', time_delta.seconds / 60, 'minutes')
