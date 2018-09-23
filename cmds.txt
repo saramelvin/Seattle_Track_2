@@ -1,4 +1,0 @@
-df1['LAT'].min())
-df1['LAT'].max())
-df1['LON'].min())
-df1['LON'].max())
