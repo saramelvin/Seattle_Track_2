@@ -31,6 +31,7 @@ for date in dates:
     print('Number of boxes:', num_boxes)
     boxes_checked = 0
 
+    ship_combos_checked = set()
     # Loop through each sub-box
     for lat_i, temp_box_lat in enumerate(intervals['lat']):
         for lon_i, temp_box_lon in enumerate(intervals['lon']):
@@ -47,12 +48,16 @@ for date in dates:
                 ships = list(set(df_box.MMSI.tolist()))
                 # If more than 1 ship
                 if ships is not None and len(ships) > 1:
+                    ships.sort()
                     # print('Starting box', temp_box_lat, temp_box_lon)
                     # print('Count ships:', len(ships))
-                    # Create all combinations of ships
-                    for combo in combinations(ships, 2):  # 2 for pairs, 3 for triplets, etc
+                    # Create all combinations of ships that haven't been checked yet
+                    ship_combinations = set(list(combinations(ships, 2)))  # 2 for pairs, 3 for triplets, etc
+                    ship_combinations = ship_combinations - ship_combos_checked
+                    for combo in ship_combinations:
                         # check time in here
                         # Check distance between ships
+                        ship_combos_checked.add(combo)
                         distance = great_circle((df_box.LAT[df_box.MMSI == combo[0]].iloc[0], df_box.LON[df_box.MMSI == combo[0]].iloc[0]), (df_box.LAT[df_box.MMSI == combo[1]].iloc[0], df_box.LON[df_box.MMSI == combo[1]].iloc[0])).feet / 3
                         if distance < 8000:
                             print(combo[0], combo[1])
