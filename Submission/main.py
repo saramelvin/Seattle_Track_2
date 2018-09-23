@@ -1,72 +1,87 @@
 import pandas as pd
-import numpy as np
 from geopy.distance import great_circle
 import datetime
+from itertools import combinations
+from Submission.functions import haversine, filter_df, box_intervals
 
+df_file = 'data/AIS_2017_12_Zone11.csv'
 
-def max_min_lat_lon(df):
-    data = {
-        'lat_max': df['LAT'].max(),
-        'lat_min': df['LAT'].min(),
-        'lon_max': df['LON'].max(),
-        'lon_min': df['LON'].min()
-    }
-    return data
+# Rebuilds the dataframe from the chunks
+df = pd.read_csv(df_file)
+print('File read.', df.shape)
 
+df = filter_df(df)
 
-df11 = pd.read_csv('data/AIS_2017_12_Zone11.csv')
-print('File read.')
-
-df11 = df11.sort_values(by='BaseDateTime', ascending=True)
-print('Data sorted by time.')
-df11.BaseDateTime = pd.to_datetime(df11.BaseDateTime, errors='raise')
-df11['Date'] = df11.BaseDateTime.apply(lambda x: x.date())
-print('Date/Time values converted to Date/Time objects.')
-
-date_min = df11.Date.min()  # start date
-date_max = df11.Date.max()  # end date
+date_min = df.Date.min()  # start date
+date_max = df.Date.max()  # end date
 
 delta = date_max - date_min         # timedelta
 
-dates=[]
+dates = []
 for i in range(delta.days + 1):
     dates.append(date_min + datetime.timedelta(i))
 
 for date in dates:
     print(date)
-    df11_date = df11[(df11.Date >= date) & (df11.Date < date+datetime.timedelta(1))]
-    print(df11_date.Date.max(), df11_date.Date.min())
+    df_date = df[(df.Date >= date) & (df.Date < date+datetime.timedelta(1))]
 
-    borders = max_min_lat_lon(df11_date)
-    print(borders)
-    border_min_gps = (borders['lat_min'], borders['lon_min'])
-    border_max_lat = (borders['lat_max'], borders['lon_min'])
-    border_max_lon = (borders['lat_min'], borders['lon_max'])
+    intervals = box_intervals(df_date)
 
-    lat_distance = great_circle(border_min_gps, border_max_lat).feet / 3
-    lon_distance = great_circle(border_min_gps, border_max_lon).feet / 3
+    num_boxes = len(intervals['lat']*len(intervals['lon']))
+    print('Number of boxes:', num_boxes)
+    boxes_checked = 0
 
-    lat_distance_num_intervals = lon_distance / 4000
-    lon_distance_num_intervals = lat_distance / 4000
+    # Loop through each sub-box
+    for lat_i, temp_box_lat in enumerate(intervals['lat']):
+        for lon_i, temp_box_lon in enumerate(intervals['lon']):
+            boxes_checked = boxes_checked + 1
+            if boxes_checked % 1000 == 0:
+                print('Boxes checked:', boxes_checked)
+            # Don't loop through end of box
+            if (lat_i < len(intervals['lat']) - 3) & (lon_i < len(intervals['lon']) - 3):
+                # print('Starting box', temp_box_lat, temp_box_lon)
+                interactions = pd.DataFrame
+                # Get all data within box
+                df_box = df_date[(df_date.LAT >= temp_box_lat)&(df_date.LAT <= intervals['lat'][lat_i+2])&(df_date.LON >= temp_box_lon)&(df_date.LON <= intervals['lon'][lon_i+2])]
+                # Get ids of all ships that existed in the box
+                ships = list(set(df_box.MMSI.tolist()))
+                # If more than 1 ship
+                if ships is not None and len(ships) > 1:
+                    # print('Starting box', temp_box_lat, temp_box_lon)
+                    # print('Count ships:', len(ships))
+                    # Create all combinations of ships
+                    for combo in combinations(ships, 2):  # 2 for pairs, 3 for triplets, etc
+                        # check time in here
+                        # Check distance between ships
+                        distance = great_circle((df_box.LAT[df_box.MMSI == combo[0]].iloc[0], df_box.LON[df_box.MMSI == combo[0]].iloc[0]), (df_box.LAT[df_box.MMSI == combo[1]].iloc[0], df_box.LON[df_box.MMSI == combo[1]].iloc[0])).feet / 3
+                        if distance < 8000:
+                            print(combo[0], combo[1])
+                            # interactions.append(df_box[df_box.MMSI == combo[0]])
+                            # interactions.append(df_box[df_box.MMSI == combo[1]])
+                # print(interactions.shape)
 
-    lat_distance_intervals = np.linspace(borders['lat_min'], borders['lat_max'], lat_distance_num_intervals)
-    lon_distance_intervals = np.linspace(borders['lon_min'], borders['lon_max'], lon_distance_num_intervals)
-
-    print(lat_distance_intervals, len(lat_distance_intervals))
-    print(lon_distance_intervals, len(lon_distance_intervals))
 
 
 
 
-i=0
-for temp_box_lat in lat_distance_intervals:
-    for temp_box_lon in lon_distance_intervals:
-        i=i+1
+# Range = namedtuple('Range', ['start', 'end'])
+# r1 = Range(start=datetime.datetime(2012, 1, 15), end=datetime.datetime(2012, 5, 10))
+# r2 = Range(start=datetime.datetime(2012, 3, 20), end=datetime.datetime(2012, 9, 15))
+# def time_overlap(r1, r2):
+#     latest_start = max(r1.start, r2.start)
+#     earliest_end = min(r1.end, r2.end)
+#     time_delta = (earliest_end - latest_start).seconds
+#     overlap = max(0, delta)
+#     overlap
+#
+#
+# i=0
 
-# df11[(df11.MMSI == 357147000)|(df11.MMSI == 366760710)]
-# df_sectors = df11[()&()&()&()]
+
+# df[(df.MMSI == 357147000)|(df.MMSI == 366760710)]
+# df_sectors = df[()&()&()&()]
 # temp_df =     df2[(df2.BaseDateTime > time_min)&(df2.BaseDateTime < time_max)]
-# ships = df11.MMSI.tolist()
+# ships = df.MMSI.tolist()
 # if len(ships) > 1
 #     for ship in ships:
 
