@@ -1,3 +1,3 @@
-# Test Submission
+# Blue Dots Team
 
-Test submission for PR
+This submission is for the Team Blue Dots.

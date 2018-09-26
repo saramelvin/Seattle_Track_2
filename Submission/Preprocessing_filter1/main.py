@@ -4,7 +4,7 @@ import datetime
 from itertools import combinations
 from Submission.functions import haversine, filter_df, box_intervals, time_overlap
 
-df_file = 'data/AIS_2017_12_Zone11.csv'
+df_file = '../Data/AIS_2017_12_Zone11.csv'
 
 # Rebuilds the dataframe from the chunks
 df = pd.read_csv(df_file)
